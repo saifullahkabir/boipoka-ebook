@@ -5,8 +5,9 @@ const AddBook = () => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-
+        console.log(formData, 'formData');
         const res = await axios.post('http://localhost:5000/books', formData);
+        console.log(res.data, 'books data');
         if (res.data.insertedId) {
             alert('Book uploaded successfully!');
             form.reset();
