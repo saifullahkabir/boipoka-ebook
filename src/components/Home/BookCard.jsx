@@ -5,7 +5,7 @@ const BookCard = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/books")
+    axios.get(`${import.meta.env.VITE_API_UR}/books`)
       .then(res => setBooks(res.data))
       .catch(err => console.error(err));
   }, []);
