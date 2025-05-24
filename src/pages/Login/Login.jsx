@@ -59,8 +59,8 @@ const Login = () => {
   }
 
   return (
-    <div className='flex justify-center items-center min-h-screen'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
+    <div className='flex justify-center items-center min-h-screen p-4 md:p-0'>
+      <div className='flex flex-col min-w-full md:min-w-md p-4 md:p-8  rounded-md shadow-md border border-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Log In</h1>
           <p className='text-sm text-gray-400'>
@@ -83,7 +83,7 @@ const Login = () => {
                 onChange={e => setEmail(e.target.value)}
                 required
                 placeholder='Enter Your Email Here'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                className='w-full px-3 py-2 border rounded-md border-none shadow-md  focus:outline-rose-500 bg-gray-100 text-gray-900'
                 data-temp-mail-org='0'
               />
             </div>
@@ -100,7 +100,7 @@ const Login = () => {
                 id='password'
                 required
                 placeholder='*******'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                className='w-full px-3 py-2 border rounded-md border-none shadow-md  focus:outline-rose-500 bg-gray-100 text-gray-900'
               />
             </div>
           </div>
@@ -109,9 +109,9 @@ const Login = () => {
             <button
               disabled={loading}
               type='submit'
-              className='bg-rose-500 w-full rounded-md py-3 text-white'
+              className='bg-rose-500 w-full rounded-md py-2 font-semibold text-white'
             >
-              {loading ? <TbFidgetSpinner className='animate-spin m-auto' /> : 'Sign In'}
+              {loading ? <TbFidgetSpinner className='animate-spin m-auto text-xl' /> : 'Sign In'}
             </button>
           </div>
         </form>
@@ -132,7 +132,7 @@ const Login = () => {
                     type='email'
                     disabled
                     placeholder={email}
-                    className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900 placeholder:text-gray-800'
+                    className='w-full px-3 py-2 border rounded-md border-none shadow-md  focus:outline-rose-500 bg-gray-100 text-gray-900 placeholder:text-gray-800'
                     data-temp-mail-org='0'
                   />
                 </div>
@@ -141,7 +141,7 @@ const Login = () => {
                     onClick={handleResetPassword}
                     disabled={loading}
                     type='submit'
-                    className='bg-rose-500 w-full rounded-md py-3 text-white'
+                    className='bg-rose-500 w-full rounded-md py-2 font-semibold text-white'
                   >
                     {loading ? <TbFidgetSpinner className='animate-spin m-auto' /> : 'Forget Password'}
                   </button>
@@ -160,7 +160,7 @@ const Login = () => {
         <button
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className='disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+          className='disabled:cursor-not-allowed flex justify-center items-center space-x-2 border my-3 p-2 border-gray-300 border-rounded cursor-pointer hover:bg-gray-900  active:bg-gray-900 active:text-white hover:text-white font-semibold rounded-md'>
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>
