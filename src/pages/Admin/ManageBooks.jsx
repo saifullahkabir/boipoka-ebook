@@ -2,9 +2,34 @@ import { Helmet } from "react-helmet-async";
 import Container from "../../components/Shared/Container";
 import BookDataRow from "../../components/TableRows/BookDataRow";
 import useBooks from "../../hooks/useBooks";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const ManageBooks = () => {
     const [books, refetch] = useBooks();
+    const axiosSecure = useAxiosSecure();
+
+    const { mutateAsync } = useMutation({
+        mutationFn: async (id) => {
+            const { data } = await axiosSecure.delete(`/book/${id}`);
+            return data;
+        },
+        onSuccess: () => {
+            refetch();
+            toast.success('Deleted Successfully!');
+        }
+    })
+
+    // handle delete
+    const handleDelete = async id => {
+        try {
+            await mutateAsync(id);
+        }
+        catch (err) {
+            toast.error(err.message);
+        }
+    }
 
     return (
         <>
