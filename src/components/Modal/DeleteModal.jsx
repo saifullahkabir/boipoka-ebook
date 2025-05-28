@@ -9,7 +9,7 @@ import {
   const DeleteModal = ({ closeModal, isOpen, handleDelete, id }) => {
     return (
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as='div' className='relative z-10' onClose={closeModal}>
+        <Dialog as='div' className='relative z-50' onClose={closeModal}>
           <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
@@ -19,7 +19,7 @@ import {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <div className='fixed inset-0 bg-black bg-opacity-25' />
+            <div className='fixed inset-0 bg-black/25' />
           </TransitionChild>
   
           <div className='fixed inset-0 overflow-y-auto'>
@@ -45,8 +45,8 @@ import {
                       You cannot undo once it&apos;s done!
                     </p>
                   </div>
-                  <hr className='mt-8 ' />
-                  <div className='flex mt-2 justify-around'>
+                  <hr className='mt-6  text-gray-300' />
+                  <div className='flex mt-4 justify-around'>
                     <button
                     onClick={() => {
                         handleDelete(id)

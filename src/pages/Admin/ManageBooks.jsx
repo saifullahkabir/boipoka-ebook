@@ -87,6 +87,7 @@ const ManageBooks = () => {
                                         books.map(book => <BookDataRow
                                             key={book._id}
                                             book={book}
+                                            handleDelete={handleDelete}
                                         ></BookDataRow>)
                                     }
                                 </tbody>
