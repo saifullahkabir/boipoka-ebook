@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DeleteModal from "../Modal/DeleteModal";
+import UpdateModal from "../Modal/UpdateModal";
 
 const BookDataRow = ({ book, handleDelete }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -47,14 +48,15 @@ const BookDataRow = ({ book, handleDelete }) => {
 
             </td>
             <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                <span className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+                <button onClick={() => setIsOpen(true)} className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
                     <span
                         aria-hidden='true'
                         className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
                     ></span>
                     <span className='relative'>Update</span>
-                </span>
+                </button>
                 {/* Update Modal */}
+                
             </td>
         </tr>
     );

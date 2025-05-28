@@ -1,18 +1,32 @@
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import AddBookForm from "../../components/Form/AddBookForm";
 import { imageUpload } from "../../api/utils";
+import UpdateBookForm from "../../components/Form/UpdateBookForm";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
-const AddBook = () => {
+const UpdateBook = () => {
+    const { id } = useParams();
     const { user } = useAuth();
+    const axiosPublic = useAxiosPublic();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [imagePreview, setImagePreview] = useState();
-    const [imageText, setImageText] = useState('Upload Image')
+    const [imageText, setImageText] = useState('Upload Image');
+
+
+    const { data: book } = useQuery({
+        queryKey: ['book', id],
+        queryFn: async () => {
+            const { data } = await axiosPublic.get(`/book/${id}`);
+            return data
+        }
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -76,17 +90,17 @@ const AddBook = () => {
     return (
         <div>
             <Helmet>
-                <title>Add Book | BoiPoka</title>
+                <title>Update Book | BoiPoka</title>
             </Helmet>
-            <AddBookForm
+            <UpdateBookForm
                 handleSubmit={handleSubmit}
                 imagePreview={imagePreview}
                 handleImage={handleImage}
                 imageText={imageText}
                 loading={loading}
-            ></AddBookForm>
+            ></UpdateBookForm>
         </div>
     );
 };
 
-export default AddBook;
+export default UpdateBook;
