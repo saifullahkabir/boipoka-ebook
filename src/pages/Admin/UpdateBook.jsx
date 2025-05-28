@@ -1,14 +1,14 @@
 import axios from "axios";
-import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
-import AddBookForm from "../../components/Form/AddBookForm";
-import { imageUpload } from "../../api/utils";
-import UpdateBookForm from "../../components/Form/UpdateBookForm";
+
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+import { imageUpload } from "../../api/utils";
+import UpdateBookForm from "../../components/Form/UpdateBookForm";
 
 const UpdateBook = () => {
     const { id } = useParams();
@@ -20,13 +20,14 @@ const UpdateBook = () => {
     const [imageText, setImageText] = useState('Upload Image');
 
 
-    const { data: book } = useQuery({
+    const { data: book, refetch } = useQuery({
         queryKey: ['book', id],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/book/${id}`);
             return data
         }
     })
+    console.log(book);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,8 +41,11 @@ const UpdateBook = () => {
 
         try {
             setLoading(true);
-            // upload image on imgBB
-            const image_url = await imageUpload(image);
+            let image_url = book?.image;
+            if (image) {
+                // upload image on imgBB
+                image_url = await imageUpload(image);
+            }
             console.log(image_url, 'image');
             const bookData = {
                 title,
@@ -52,28 +56,31 @@ const UpdateBook = () => {
                     name: user?.displayName,
                     email: user?.email
                 },
-                uploadTime: new Date(),
             }
             console.log(bookData, 'bookData');
 
             // formData object
             const formData = new FormData();
-            formData.append('pdf', pdfFile);
+            if (pdfFile) {
+                formData.append('pdf', pdfFile);
+            }
             formData.append('bookData', JSON.stringify(bookData));
             console.log(formData);
 
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/books`, formData, {
+            const res = await axios.patch(`${import.meta.env.VITE_API_URL}/book/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             console.log(res, 'res');
 
-            if (res.data.insertedId) {
-                toast.success('Book uploaded successfully!');
-                form.reset();
-                navigate('/manage-books')
+            if (res.data.modifiedCount > 0) {
+                toast.success('Book updated successfully!');
+                navigate('/manage-books');
+                refetch();
+            } else {
+                toast('Nothing was changed.');
             }
         } catch (err) {
-            toast.error('Upload failed: ' + (err.response?.data?.error || err.message));
+            toast.error('Update failed: ' + (err.response?.data?.error || err.message));
             setLoading(false);
             console.log(err);
         } finally {
@@ -83,6 +90,7 @@ const UpdateBook = () => {
 
     // handle image change 
     const handleImage = image => {
+        if (!image) return;
         setImagePreview(URL.createObjectURL(image));
         setImageText(image.name);
     }
@@ -93,6 +101,7 @@ const UpdateBook = () => {
                 <title>Update Book | BoiPoka</title>
             </Helmet>
             <UpdateBookForm
+                book={book}
                 handleSubmit={handleSubmit}
                 imagePreview={imagePreview}
                 handleImage={handleImage}

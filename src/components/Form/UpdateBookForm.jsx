@@ -1,6 +1,6 @@
 import { TbFidgetSpinner } from 'react-icons/tb';
 
-const UpdateBookForm = ({ handleSubmit, imagePreview, handleImage, imageText, loading }) => {
+const UpdateBookForm = ({ book, handleSubmit, imagePreview, handleImage, imageText, loading }) => {
     return (
         <div className='lg:max-w-3xl md:max-w-2xl pt-28 md:pt-32 lg:pt-36 xl:pt-44 container mx-auto px-5 md:px-0'>
             <div className='px-4 md:px-6 lg:px-8 xl:px-10 text-gray-800 rounded-xl bg-[#ffc3d244] shadow-md py-6 md:py-8 lg:py-12'>
@@ -17,7 +17,7 @@ const UpdateBookForm = ({ handleSubmit, imagePreview, handleImage, imageText, lo
                                     id='title'
                                     type='text'
                                     placeholder='Title'
-                                    
+                                    defaultValue={book?.title}
                                 />
                             </div>
 
@@ -26,7 +26,7 @@ const UpdateBookForm = ({ handleSubmit, imagePreview, handleImage, imageText, lo
                                     Category
                                 </label>
                                 <select
-                                    
+                                    defaultValue={book?.category}
                                     className='w-full px-4 py-3 bg-white border border-rose-300 focus:outline-rose-500 rounded-md'
                                     name='category'
                                 >
@@ -53,11 +53,11 @@ const UpdateBookForm = ({ handleSubmit, imagePreview, handleImage, imageText, lo
                                     id='author'
                                     type='text'
                                     placeholder='Author'
-                                    
+                                    defaultValue={book?.author}
                                 />
                             </div>
 
-                            <div className={`p-4 bg-white w-full  m-auto rounded-lg ${imagePreview && 'flex justify-around items-center'}`}>
+                            <div className={`p-4 bg-white w-full  m-auto rounded-lg ${(imagePreview || book?.image) && 'flex justify-around items-center'}`}>
                                 <div className='file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg'>
                                     <div className='flex flex-col w-max mx-auto text-center'>
                                         <div>
@@ -87,9 +87,9 @@ const UpdateBookForm = ({ handleSubmit, imagePreview, handleImage, imageText, lo
                                     </div>
 
                                 </div>
-                                {imagePreview && <div className="border-2 border-dashed border-gray-200 rounded p-1 min-h-14 min-w-14 overflow-hidden">
-                                    <img src={imagePreview} className="w-14 h-10 object-cover object-center" />
-                                </div>}
+                                {(imagePreview || book?.image) && (<div className="border-2 border-dashed border-gray-200 rounded p-1 min-h-14 min-w-14 overflow-hidden">
+                                    <img src={imagePreview || book?.image} alt="Preview" className="w-14 h-10 object-cover object-center" />
+                                </div>)}
                             </div>
 
                         </div>
@@ -105,8 +105,9 @@ const UpdateBookForm = ({ handleSubmit, imagePreview, handleImage, imageText, lo
                                 type="file"
                                 name="pdf"
                                 accept=".pdf"
-                                
+
                             />
+
                         </div>
                     </div>
 
