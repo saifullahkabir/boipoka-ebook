@@ -52,6 +52,7 @@ const UpdateBook = () => {
                 author,
                 category,
                 image: image_url,
+                fileUrl: book?.fileUrl,
                 uploader: {
                     name: user?.displayName,
                     email: user?.email
@@ -63,6 +64,7 @@ const UpdateBook = () => {
             const formData = new FormData();
             if (pdfFile) {
                 formData.append('pdf', pdfFile);
+                console.log(pdfFile);
             }
             formData.append('bookData', JSON.stringify(bookData));
             console.log(formData);

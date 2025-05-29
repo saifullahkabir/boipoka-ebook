@@ -1,5 +1,4 @@
 import { FaBookOpenReader, FaFilePdf } from 'react-icons/fa6';
-import bookImg from '../../assets/cyber.webp'
 import useHandleSave from '../../hooks/useHandleSave';
 const MyBooksCard = ({ book }) => {
     const handleSave = useHandleSave();
@@ -9,8 +8,8 @@ const MyBooksCard = ({ book }) => {
             <div className="card card-side bg-base-100 shadow-md">
                 <figure className='w-2/5 lg:w-1/3 2xl:w-1/4'>
                     <img
-                        className=''
-                        src={bookImg}
+                        className='h-[180px] object-cover object-center'
+                        src={book?.image}
                         alt="book" />
                 </figure>
                 <div className="card-body pl-3 lg:pl-6">
@@ -21,7 +20,7 @@ const MyBooksCard = ({ book }) => {
                         book?.status === 'read' ?
                             <div className="card-actions justify-end">
                                 <a
-                                    href={book?.driveUrl}
+                                    href={book?.fileUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-2 flex justify-center items-center gap-1 h-8 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c]  hover:scale-105 active:scale-105 duration-300 hover:from-[#be123c] hover:to-[#fb7185] active:from-[#be123c] active:to-[#fb7185]"
@@ -37,7 +36,7 @@ const MyBooksCard = ({ book }) => {
                                     <FaBookOpenReader />
                                 </button>
                                 <a
-                                    href={book?.driveUrl}
+                                    href={book?.fileUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-2 flex justify-center items-center gap-1 h-8 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c]  hover:scale-105 active:scale-105 duration-300 hover:from-[#be123c] hover:to-[#fb7185] active:from-[#be123c] active:to-[#fb7185]"

@@ -37,7 +37,7 @@ const BookCard = ({ book }) => {
                         </button>
                     </div>
                     <a
-                        href={book?.driveUrl}
+                        href={book?.fileUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-4 flex justify-center items-center gap-2 w-full h-10 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c]  hover:scale-105 active:scale-105 duration-300 hover:from-[#be123c] hover:to-[#fb7185] active:from-[#be123c] active:to-[#fb7185]"

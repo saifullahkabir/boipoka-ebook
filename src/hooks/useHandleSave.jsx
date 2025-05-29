@@ -20,7 +20,7 @@ const useHandleSave = () => {
                     title: book.title,
                     image: book.image,
                     author: book.author,
-                    driveUrl: book.driveUrl,
+                    fileUrl: book.fileUrl,
                     status: status, // 'read' or 'wishlist'
                 };
 
