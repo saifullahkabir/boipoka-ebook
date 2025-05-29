@@ -87,6 +87,12 @@ const Navbar = () => {
                         >
                           Manage Books
                         </NavLink>
+                        <NavLink
+                          to='/manage-users'
+                          className={getActiveClass}
+                        >
+                          Manage Users
+                        </NavLink>
                         <div
                           onClick={logOut}
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'

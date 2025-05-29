@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import UserDataRow from "../../components/TableRows/UserDataRow";
 
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -9,7 +10,7 @@ const ManageUsers = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const { data } = await axiosSecure(`/users`);
+            const { data } = await axiosSecure.get(`/users`);
             return data
         }
     })
