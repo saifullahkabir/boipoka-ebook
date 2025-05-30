@@ -6,10 +6,11 @@ import avatarImg from '../../assets/placeholder.jpg'
 import logo2 from '../../assets/bug (1).png'
 import useAuth from '../../hooks/useAuth'
 import { getActiveClass } from '../utils/activeLinkClass'
+import useRole from '../../hooks/useRole'
 
 const Navbar = () => {
-
   const { user, logOut } = useAuth();
+  const [role] = useRole();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef()
 
@@ -75,24 +76,28 @@ const Navbar = () => {
                         >
                           My Books
                         </NavLink>
-                        <NavLink
-                          to='/add-book'
-                          className={getActiveClass}
-                        >
-                          Add Book
-                        </NavLink>
-                        <NavLink
-                          to='/manage-books'
-                          className={getActiveClass}
-                        >
-                          Manage Books
-                        </NavLink>
-                        <NavLink
-                          to='/manage-users'
-                          className={getActiveClass}
-                        >
-                          Manage Users
-                        </NavLink>
+                        {role === 'admin' && (
+                          <>
+                            <NavLink
+                              to='/add-book'
+                              className={getActiveClass}
+                            >
+                              Add Book
+                            </NavLink>
+                            <NavLink
+                              to='/manage-books'
+                              className={getActiveClass}
+                            >
+                              Manage Books
+                            </NavLink>
+                            <NavLink
+                              to='/manage-users'
+                              className={getActiveClass}
+                            >
+                              Manage Users
+                            </NavLink>
+                          </>
+                        )}
                         <div
                           onClick={logOut}
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
