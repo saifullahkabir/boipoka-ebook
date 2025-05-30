@@ -10,7 +10,7 @@ const Login = () => {
   const { signIn, signInWithGoogle, resetPassword, loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state || '/';
+  const from = location?.state?.from?.pathname || '/';
   const [email, setEmail] = useState('');
 
   const handleLogin = async (e) => {

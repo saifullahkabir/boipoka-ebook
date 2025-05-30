@@ -5,8 +5,9 @@ import useAxiosSecure from "./useAxiosSecure";
 const useMyBooks = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    const {data: myBooks = [], refetch, isLoading } = useQuery({
+    const { data: myBooks = [], refetch, isLoading } = useQuery({
         queryKey: ['my-books', user?.email],
+        enabled: !!user?.email,
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/my-books/${user?.email}`);
             return data;

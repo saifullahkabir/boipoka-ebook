@@ -87,39 +87,76 @@ const AuthProvider = ({ children }) => {
   }
 
   // onAuthStateChange
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      // setUser(currentUser);
-      // if (currentUser) {
-      //   getToken(currentUser.email || user?.email);
-      //   saveUser(currentUser);
-      // }
-      // setLoading(false);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, currentUser => {
+  //     // setUser(currentUser);
+  //     // if (currentUser) {
+  //     //   getToken(currentUser.email || user?.email);
+  //     //   saveUser(currentUser);
+  //     // }
+  //     // setLoading(false);
 
-      // problem solve code
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
-      console.log(currentUser, 'current user');
-      setUser(currentUser);
-      setLoading(false);
-      if (currentUser) {
-        saveUser(currentUser);
-        axios.post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, { withCredentials: true })
-          .then(res => {
-            console.log('logged user:', res.data);
-          })
+  //     // problem solve code
+  //     const userEmail = currentUser?.email || user?.email;
+  //     const loggedUser = { email: userEmail };
+  //     console.log(currentUser, 'current user');
+  //     setUser(currentUser);
+  //     setLoading(false);
+  //     if (currentUser) {
+  //       saveUser(currentUser);
+  //       axios.post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, { withCredentials: true })
+  //         .then(res => {
+  //           console.log('logged user:', res.data);
+  //         })
+  //     }
+  //     else {
+  //       axios.post(`${import.meta.env.VITE_API_URL}/logout`, loggedUser, { withCredentials: true })
+  //         .then(res => {
+  //           console.log(res.data);
+  //         })
+  //     }
+  //   })
+  //   return () => {
+  //     return unsubscribe()
+  //   }
+  // }, [])
+
+  
+  useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    setLoading(true);
+    console.log(currentUser, 'current user');
+    setUser(currentUser);
+
+    if (currentUser?.email) {
+      const loggedUser = { email: currentUser.email };
+
+      // Save to DB
+      await saveUser(currentUser);
+
+      // Get JWT from backend
+      try {
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, { withCredentials: true });
+        console.log('JWT set:', data);
+      } catch (err) {
+        console.error('JWT error:', err);
       }
-      else {
-        axios.post(`${import.meta.env.VITE_API_URL}/logout`, loggedUser, { withCredentials: true })
-          .then(res => {
-            console.log(res.data);
-          })
+    } else {
+      // Logout JWT cookie
+      try {
+        await axios.post(`${import.meta.env.VITE_API_URL}/logout`, {}, { withCredentials: true });
+        console.log('JWT cookie removed');
+      } catch (err) {
+        console.error('JWT logout error:', err);
       }
-    })
-    return () => {
-      return unsubscribe()
     }
-  }, [])
+
+    setLoading(false);
+  });
+
+  return () => unsubscribe();
+}, []);
+
 
   const authInfo = {
     user,
