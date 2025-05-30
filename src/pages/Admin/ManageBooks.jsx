@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet-async";
-import Container from "../../components/Shared/Container";
 import BookDataRow from "../../components/TableRows/BookDataRow";
 import useBooks from "../../hooks/useBooks";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 
 const ManageBooks = () => {
-    const [books, refetch] = useBooks();
+    const [books, refetch, isLoading] = useBooks();
     const axiosSecure = useAxiosSecure();
 
     const { mutateAsync } = useMutation({
@@ -31,10 +31,12 @@ const ManageBooks = () => {
         }
     }
 
+    if (isLoading) return <LoadingSpinner />
+
     return (
         <>
             <Helmet>
-                <title>My Listings</title>
+                <title>Manage Books | BoiPoka</title>
             </Helmet>
 
             <div className='container mx-auto px-4 sm:px-8 lg:px-12 pt-14 md:pt-16 xl:pt-20'>

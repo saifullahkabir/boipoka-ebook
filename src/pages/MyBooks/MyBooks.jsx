@@ -1,13 +1,11 @@
 
 import { Helmet } from "react-helmet-async";
 import Container from "../../components/Shared/Container";
-import useMyBooks from "../../hooks/useMyBooks";
 import MyBooksTab from "./MyBooksTab";
 
 
 const MyBooks = () => {
-    const [myBooks] = useMyBooks();
-    console.log(myBooks);
+    
     return (
         <Container>
             <Helmet>

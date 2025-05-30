@@ -16,6 +16,7 @@ const ManageUsers = () => {
     })
 
     if (isLoading) return <LoadingSpinner />
+
     return (
         <>
             <div className='container mx-auto px-4 sm:px-8 lg:px-12 pt-14 md:pt-16 xl:pt-20'>

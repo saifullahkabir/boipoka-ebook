@@ -1,9 +1,11 @@
 import Container from '../../components/Shared/Container';
 import BookCard from '../../components/Home/BookCard';
 import useBooks from '../../hooks/useBooks';
+import LoadingSpinner from '../../components/Shared/LoadingSpinner';
 
 const Books = () => {
-    const [books] = useBooks();
+    const [books, , isLoading] = useBooks();
+    if (isLoading) return <LoadingSpinner />
 
     return (
         <Container>

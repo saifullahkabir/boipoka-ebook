@@ -7,6 +7,9 @@ import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 
+import { registerSW } from 'virtual:pwa-register';
+registerSW({ immediate: true }); // This will register your service worker
+
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
