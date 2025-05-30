@@ -15,12 +15,13 @@ import { AiOutlineDown } from 'react-icons/ai'
 const roles = ['guest', 'admin']
 
 const UpdateUserModal = ({ setIsOpen, isOpen, modalHandler, user }) => {
-  const [selected, setSelected] = useState(user.role)
+  const [selected, setSelected] = useState(user?.role);
+  
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as='div'
-        className='relative z-10'
+        className='relative z-50'
         onClose={() => setIsOpen(false)}
       >
         <TransitionChild
@@ -46,7 +47,7 @@ const UpdateUserModal = ({ setIsOpen, isOpen, modalHandler, user }) => {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <DialogPanel className='w-full h-56 max-w-md transform overflow-y-auto rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+              <DialogPanel className='w-full h-56 max-w-md transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                 <DialogTitle
                   as='h3'
                   className='text-lg font-medium text-center leading-6 text-gray-900'
@@ -81,9 +82,8 @@ const UpdateUserModal = ({ setIsOpen, isOpen, modalHandler, user }) => {
                               {({ selected }) => (
                                 <>
                                   <span
-                                    className={`block truncate ${
-                                      selected ? 'font-medium' : 'font-normal'
-                                    }`}
+                                    className={`block truncate ${selected ? 'font-medium' : 'font-normal'
+                                      }`}
                                   >
                                     {role}
                                   </span>
@@ -104,9 +104,9 @@ const UpdateUserModal = ({ setIsOpen, isOpen, modalHandler, user }) => {
                     </div>
                   </Listbox>
                 </div>
-                <hr className='mt-16 ' />
+                <hr className='mt-12 text-gray-300 ' />
 
-                <div className='flex mt-2 justify-center gap-5'>
+                <div className='flex mt-4 justify-center gap-5'>
                   <button
                     type='button'
                     className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'

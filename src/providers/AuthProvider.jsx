@@ -83,7 +83,6 @@ const AuthProvider = ({ children }) => {
       status: 'Verified'
     }
     const { data } = await axiosPublic.put(`/user`, userData);
-    console.log(data, 'save to db');
     return data;
   }
 
