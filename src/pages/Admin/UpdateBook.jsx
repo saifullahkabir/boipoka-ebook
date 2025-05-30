@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -9,11 +8,13 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import { imageUpload } from "../../api/utils";
 import UpdateBookForm from "../../components/Form/UpdateBookForm";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UpdateBook = () => {
     const { id } = useParams();
     const { user } = useAuth();
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [imagePreview, setImagePreview] = useState();
@@ -69,7 +70,7 @@ const UpdateBook = () => {
             formData.append('bookData', JSON.stringify(bookData));
             console.log(formData);
 
-            const res = await axios.patch(`${import.meta.env.VITE_API_URL}/book/${id}`, formData, {
+            const res = await axiosSecure.patch(`/book/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             console.log(res, 'res');

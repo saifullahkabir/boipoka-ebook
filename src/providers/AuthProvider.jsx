@@ -99,6 +99,7 @@ const AuthProvider = ({ children }) => {
       // problem solve code
       const userEmail = currentUser?.email || user?.email;
       const loggedUser = { email: userEmail };
+      console.log(currentUser, 'current user');
       setUser(currentUser);
       setLoading(false);
       if (currentUser) {

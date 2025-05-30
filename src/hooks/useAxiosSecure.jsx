@@ -14,7 +14,8 @@ const useAxiosSecure = () => {
   useEffect(() => {
     axiosSecure.interceptors.response.use(
       res => {
-        return res
+        console.log(res, 'res secure:');
+        return res;
       },
       async error => {
         console.log('error tracked in the interceptor', error.response)

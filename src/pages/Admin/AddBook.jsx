@@ -1,4 +1,3 @@
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +5,12 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import AddBookForm from "../../components/Form/AddBookForm";
 import { imageUpload } from "../../api/utils";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddBook = () => {
     const { user } = useAuth();
     const [loading, setLoading] = useState(false);
+    const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [imagePreview, setImagePreview] = useState();
     const [imageText, setImageText] = useState('Upload Image')
@@ -48,7 +49,7 @@ const AddBook = () => {
             formData.append('bookData', JSON.stringify(bookData));
             console.log(formData);
 
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/books`, formData, {
+            const res = await axiosSecure.post(`/books`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             console.log(res, 'res');
