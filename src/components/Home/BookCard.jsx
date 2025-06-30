@@ -8,12 +8,12 @@ const BookCard = ({ book }) => {
 
     return (
         <div>
-            <div key={book._id} className="relative flex  flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg z-10">
+            <div key={book._id} className="relative flex  flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg z-10 h-[513px]">
                 <div className="relative mx-4 -mt-6 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-md  bg-gradient-to-r from-[#1313130D] to-[#6160600d]">
                     <img className="w-[200px] h-[230px] container mx-auto py-2 object-cover" src={book?.image || bookImg} alt="Book" />
                 </div>
                 <div className="p-6">
-                    <p className='bg-[#23BE0A0D] btn border-none text-[#23BE0A] p-2 px-4 rounded-[30px] font-semibold text-[16px] text-center'>{`Academic`}</p>
+                    <p className='bg-[#23BE0A0D] btn border-none text-[#23BE0A] p-2 px-4 rounded-[30px] font-semibold text-[16px] text-center'>{book?.category}</p>
                     <h5 className="pt-2 mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                         {book.title}
                     </h5>

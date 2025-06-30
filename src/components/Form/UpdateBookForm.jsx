@@ -34,10 +34,12 @@ const UpdateBookForm = ({ book, handleSubmit, imagePreview, handleImage, imageTe
                                     <option value="Islamic">Islamic</option>
                                     <option value="Comics">Comics</option>
                                     <option value="History">History</option>
-                                    <option value="Technology">Technology</option>
-                                    <option value="Health">Health</option>
                                     <option value="Story">Story</option>
-                                    <option value="Romance">Romance</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Fiction">Fiction</option>
+                                    <option value="Non-Fiction">Non-Fiction</option>
+                                    <option value="Novel">Novel</option>
+                                    <option value="Motivational">Motivational</option>
                                 </select>
                             </div>
 
