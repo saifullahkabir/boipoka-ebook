@@ -32,7 +32,7 @@ const Books = () => {
                 <div className="flex justify-center mt-12 md:mt-14 xl:mt-16">
                     <Link 
                         to="/all-books" 
-                        className='btn px-6 md:px-8 btn-sm md:btn-md cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c]  hover:scale-105 active:scale-105 duration-300 hover:from-[#be123c] hover:to-[#fb7185] active:from-[#be123c] active:to-[#fb7185] text-base'
+                        className='btn px-6 md:px-8 btn-sm md:btn-md cursor-pointer rounded-md shadow-2xl border-[#e11d48] text-rose-600 text-base font-semibold hover:bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c] hover:text-white hover:border-none active:bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c] active:text-white active:border-none '
                     >
                         All Books 
                         <FaArrowRight />

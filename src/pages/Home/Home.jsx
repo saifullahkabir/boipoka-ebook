@@ -3,6 +3,7 @@ import BookCard from "../../components/Home/BookCard";
 import Banner from "../../components/Home/Banner/Banner";
 import Books from "./Books";
 import { Helmet } from "react-helmet-async";
+import Faq from "../../components/Shared/Faq";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             </Helmet>
             <Banner></Banner>
             <Books></Books>
+            <Faq></Faq>
         </div>
     );
 };

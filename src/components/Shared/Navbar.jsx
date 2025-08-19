@@ -1,7 +1,7 @@
 import Container from './Container'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import avatarImg from '../../assets/placeholder.jpg'
 import logo2 from '../../assets/bug (1).png'
 import useAuth from '../../hooks/useAuth'
@@ -13,7 +13,8 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const [role] = useRole();
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef()
+  const dropdownRef = useRef();
+  const location = useLocation();
 
   // Click outside logic
   useEffect(() => {
@@ -28,7 +29,12 @@ const Navbar = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [])
+  }, []);
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location?.pathname]);
 
   return (
     <div className='fixed w-full bg-white z-20 shadow-sm'>
@@ -78,6 +84,12 @@ const Navbar = () => {
 
                       {user ? (
                         <>
+                          <NavLink
+                            to='/all-books'
+                            className={getActiveClass}
+                          >
+                            All Books
+                          </NavLink>
                           <NavLink
                             to='/my-books'
                             className={getActiveClass}
