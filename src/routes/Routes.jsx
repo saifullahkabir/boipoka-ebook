@@ -11,6 +11,7 @@ import ManageBooks from "../pages/Admin/ManageBooks";
 import UpdateBook from "../pages/Admin/UpdateBook";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
+import AllBooks from "../pages/AllBooks/AllBooks";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,12 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
+            },
+            {
+                path: "/all-books",
+                element: <PrivateRoute>
+                    <AllBooks />
+                </PrivateRoute>,
             },
             {
                 path: "/my-books",
