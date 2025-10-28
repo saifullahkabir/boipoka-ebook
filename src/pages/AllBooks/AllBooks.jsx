@@ -1,16 +1,18 @@
 import { useState } from "react";
-import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import useBooks from "../../hooks/useBooks";
 import BookCard from "../../components/Home/BookCard";
 import Container from "../../components/Shared/Container";
 import { FaSearch, FaFilter } from "react-icons/fa";
+import SkeletonCard from "../../components/Shared/SkeletonCard";
 
 const AllBooks = () => {
   const [books, , isLoading] = useBooks();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
 
-  if (isLoading) return <LoadingSpinner />;
+  // skeleton count dynamically based on cached books or default 8
+  const skeletonCount = books?.length > 0 ? books.length : 8;
+
 
   // Filtered Books
   const filteredBooks = books.filter((book) => {
@@ -84,14 +86,14 @@ const AllBooks = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Results counter */}
           <div className="mt-4 text-sm text-gray-500 flex justify-between items-center">
             <span>
               Showing {filteredBooks.length} of {books.length} books
             </span>
             {(search || category) && (
-              <button 
+              <button
                 onClick={() => {
                   setSearch("");
                   setCategory("");
@@ -104,26 +106,30 @@ const AllBooks = () => {
           </div>
         </div>
 
-        {/* Show Books */}
-        {filteredBooks.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 gap-y-16 mt-14 md:mt-16 xl:mt-20">
+        {/* Books Section */}
+        {isLoading ? (
+          // Skeleton Loading
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 gap-y-16">
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
+        ) : filteredBooks.length > 0 ? (
+          // Books List
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 gap-y-16">
             {filteredBooks.map((book) => (
               <BookCard key={book._id} book={book} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <div className="text-gray-400 mb-4">
-              <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-              </svg>
-            </div>
+          // No Books Found
+          <div className="text-center py-20">
             <p className="text-gray-500 text-lg font-medium">No books found</p>
             <p className="text-gray-400 mt-1 text-sm">
               Try adjusting your search or filter criteria
             </p>
             {(search || category) && (
-              <button 
+              <button
                 onClick={() => {
                   setSearch("");
                   setCategory("");
