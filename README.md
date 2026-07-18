@@ -158,7 +158,7 @@ BoiPoka is a modern Full Stack Progressive Web Application (PWA) for reading and
 Clone the repository
 
 ```bash
-git clone YOUR_CLIENT_REPOSITORY
+git clone https://github.com/saifullahkabir/boipoka-ebook.git
 ```
 
 Go to project
